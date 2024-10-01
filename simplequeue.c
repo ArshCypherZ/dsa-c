@@ -8,7 +8,7 @@ void enqueue(int a[], int n, int *front, int *rear) {
 	printf("\nEnter value to be inserted: ");
 	int x;
 	scanf("\n%d", &x);
-	if(*rear==*front) {
+	if(*rear==-1) {
 		*rear = 0;
 		*front = 0;
 		a[*rear] = x;
@@ -18,13 +18,20 @@ void enqueue(int a[], int n, int *front, int *rear) {
 		a[*rear] = x;
 	}
 }
-void dequeue(int a[], int *front) {
+void dequeue(int a[], int *front,int *rear) {
 	if(*front==-1) {
 		printf("\nQueue is already empty");
 		exit(0);
 	}
-	printf("\nElement to be deleted: %d", a[*front]);
-	*front = *front + 1;
+	if(*front == *rear) {
+		*front =-1;
+		*rear = -1;
+		return;
+	}
+	else {
+		printf("\nElement to be deleted: %d", a[*front]);
+		*front = *front + 1;
+	}
 }
 void traverse(int a[], int *front, int *rear) {
 	if(*front==-1) {
@@ -50,7 +57,7 @@ void main() {
 				enqueue(a, n, &front, &rear);
 				break;
 			case 2:
-			 	dequeue(a, &front);
+			 	dequeue(a, &front, &rear);
 			 	break;
 			case 3:
 				traverse(a, &front, &rear);
